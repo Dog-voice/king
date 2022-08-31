@@ -1,0 +1,23 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+   1. 스클립틀릿 방식으로 파리미터 처리<br>
+   <%=request.getParameter("nick") %> <br>
+   <%=request.getParameter("age")+1 %> 세 <br>
+   
+   <hr>
+   
+   2. EL 방식으로 파라미터 처리<br>
+   ${param.nick }<br>
+   ${param.age+1 }<br>
+    
+   
+
+</body>
+</html>

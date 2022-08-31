@@ -1,0 +1,22 @@
+package repository;
+
+import org.apache.ibatis.session.SqlSession;
+
+import domain.MemberVO;
+import orm.DatabaseBuilder;
+
+public class MemberDAOImpl implements MemberDAO {
+	// DB와 연결되서 데이터를 처리
+	private SqlSession sql;
+	
+	public MemberDAOImpl() {
+		new DatabaseBuilder();    //class 생성 => orm
+	}
+
+	@Override
+	public int insert(MemberVO mvo) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+}

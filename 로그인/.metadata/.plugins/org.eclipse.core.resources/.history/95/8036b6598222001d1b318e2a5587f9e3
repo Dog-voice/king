@@ -1,0 +1,16 @@
+package orm;
+
+import org.apache.ibatis.io.Resources;
+
+public class DatabaseBuilder {
+	private static SqlSessionFactory factory;
+	
+	static {
+		try {
+			factory = new SqlSessionFactoryBuilder().build(Resources.getResourceAsReader("orm/MybatisFonfig.xml"));  //xml파일 생성
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+
+}

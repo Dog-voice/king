@@ -1,0 +1,20 @@
+package service;
+
+import domain.BoardVO;
+import repository.BoardDAO;
+import repository.BoardDAOImpl;
+
+public class BoardServiceImpl implements BoardService {
+			private BoardDAO bdao;            // interface 생성 - > repository에 생성
+			
+			public BoardServiceImpl() {
+				bdao = new BoardDAOImpl(); //class 생성 - > repository에 생성
+			}
+
+	@Override
+	public int register(BoardVO bvo) {
+		// service - > dao db처리를 부탁
+		return 0;
+	}
+
+}

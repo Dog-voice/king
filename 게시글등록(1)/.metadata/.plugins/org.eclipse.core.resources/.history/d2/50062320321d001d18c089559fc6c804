@@ -1,0 +1,24 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+     
+   <!-- action
+       주문자 : 이름
+       1. 전어
+       2. 연어
+       3. 우럭
+       을 주문하셨습니다.-->
+       
+       주문자명 : ${param.customerName }<br>
+       <c:forEach items="${paramValues.menu }" var="food" varStatus = "order">
+     
+
+</body>
+</html>

@@ -1,0 +1,34 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+    <!-- 
+       form 이용하여 step4-action.jsp로 전송 method = "POST"
+       주문자 : 이름
+       전어 : checkbox
+       연어 :
+       우럭
+       주문하기
+       
+       action
+       주문자 : 이름
+       1. 전어
+       2. 연어
+       3. 우럭
+       을 주문하셨습니다.
+     -->
+     
+     <form action="step4-action.jsp">
+           전어 <input type="checkbox" name="aa" value="a" > <br>
+           연어 <input type="checkbox" name="bb" value="b"> <br>
+           우럭 <input type="checkbox" name="cc" value="c"> <br>
+             <button type= "submit">주문하기</button>
+          </form>
+
+</body>
+</html>

@@ -1,0 +1,14 @@
+package service;
+
+import java.util.List;
+
+import domain.MemberVO;
+import repository.MemberDAO;
+import repository.MemberDAOImpl;
+
+public class MemberServiceImpl implements MemberService {
+	private MemberDAO mdao; //interface => repository에 생성
+	
+	public MemberServiceImpl() {
+		mdao = new MemberDAOImpl();      //구현클래스 생성 => repository에 생성
+	}

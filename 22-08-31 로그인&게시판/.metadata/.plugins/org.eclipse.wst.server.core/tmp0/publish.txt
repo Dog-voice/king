@@ -1,0 +1,3 @@
+#Tomcat publish data
+#Wed Aug 31 16:35:32 KST 2022
+org.eclipse.jst.jee.server\:/binary\:D\:\\_DOG\\dogspace\\DogKing\\src\\main\\webapp\\WEB-INF\\lib\\log4j-web-2.18.0.jar=WEB-INF/lib/log4j-web-2.18.0.jar

@@ -1,0 +1,105 @@
+package controller;
+
+import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import domain.BoardVO;
+import service.BoardService;
+import service.BoardServiceImpl;
+
+
+@WebServlet("/brd/*")
+public class BoardController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	private RequestDispatcher rdp;
+	private String destPage;
+	private int isUp;
+	private BoardService bsv;
+       
+    
+    public BoardController() {
+       bsv = new BoardServiceImpl();
+    }
+
+	
+	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		req.setCharacterEncoding("utf-8");
+		res.setCharacterEncoding("utf-8");
+		res.setContentType("text/html;  charset=utf-8");
+		
+		String uri = req.getRequestURI();
+		String path = uri.substring(uri.lastIndexOf("/")+1);
+		
+		switch(path) {
+		case "register" :  
+			destPage="/board/register.jsp";	
+			break;
+			
+		case "insert" : 
+			
+			isUp = bsv.register(new BoardVO(
+					req.getParameter("title"),
+					req.getParameter("writer"),
+					req.getParameter("content")));
+			
+			log.info(">>> insert > " + (isUp > 0 ? "ok" : "fail"));
+			destPage = "list";
+			
+			break;
+			
+		case "list":  
+			List<BoardVO> list = bsv.getList();
+			req.setAttribute("list", list);
+			destPage = "/board/list.jsp";
+			break;
+			
+		case "detail" : //세부 글 보기	
+			int bno = Integer.parseInt(req.getParameter("bno")); //
+			BoardVO bvo = bsv.getDetail(bno);
+			req.setAttribute("bvo", bvo);
+			destPage="/board/detail.jsp";
+			break;
+			
+		case "modify": //update가 일어나는 부분
+			req.setAttribute("bvo", bsv.getDetail(
+					Integer.parseInt(req.getParameter("bno"))));
+			destPage = "/board/modify.jsp";
+			break;
+			
+		case "update" : 
+			isUp = bsv.modify(new BoardVO(
+						Integer.parseInt(req.getParameter("bno")),
+						req.getParameter("title"),
+						req.getParameter("content")));
+			destPage = "detail?bno="+ Integer.parseInt(req.getParameter("bno"));
+			break;
+			
+		case "remove": //delete가 일어나는 부분
+			isUp = bsv.remove(Integer.parseInt(req.getParameter("bno")));
+			destPage = "list";
+		    break;
+		}
+		
+		rdp = req.getRequestDispatcher(destPage);
+		rdp.forward(req, res);
+	}
+	
+
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		service(request, response);
+	}
+
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		service(request, response);
+	}
+
+}

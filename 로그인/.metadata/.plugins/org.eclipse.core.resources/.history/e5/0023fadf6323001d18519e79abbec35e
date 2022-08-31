@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+     <mapper namespace="MemberMapper">
+     			<insert id="reg" parameterType="mvo">
+     				insert into member(id, password, email, age)
+     				values(#{id}, #{password}, #{email}, #{age})
+     			 </insert>
+     			 <select id="list" resultType="mvo">
+     			 select * from member 
+     			 
+     			 </select>
+     			 <select id="login" parameterType="mvo" resultType="mvo">
+     			       select id, email, age from member
+     			       where id=#{id} and password=#{password}
+     			 </select>
+			       <select id="detail" parameterType="string" resultType="mvo">
+			        	select * from member  where id  =  #{id}
+			       </select>
+     			 
+     			 <update id="mod" parameterType="mvo">
+				            update member set
+				            id = #{id},  password = #{password},  email=${email}
+				             where id=#{id} and password=#{password}
+       			 </update>
+     </mapper>

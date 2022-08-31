@@ -1,0 +1,69 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%-- <!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>Member List Page</h1>
+<c:forEach items="${list }" var="mvo">
+	<div>
+			<p>
+					reg_date : ${mvo.reg_at }<br>
+					last_login : ${mvo.last_login }><br>
+					${mvo.nick_name }<br>
+					(<a href="/mem/modify?email=${mvo.email}" > ${mvo.email}</a>)
+			</p>
+	</div>
+</c:forEach>
+</body>
+</html> --%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+  <h1>Member List Page</h1>         
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>email</th>
+        <th>reg_date</th>
+        <th>last_login</th>
+        <th>nic_name</th>
+      </tr>
+    </thead>
+    <tbody>
+    <c:forEach items="${list }" var="mvo">
+      <tr>
+        <td><a href="/mem/modify?email=${mvo.email}" >${mvo.email} </a></td>
+        <td>${mvo.reg_at }</td>
+        <td>${mvo.last_login }</td>
+        <td>${mvo.nick_name }</td>
+        
+         </tr>
+      </c:forEach>
+    </tbody>
+  </table>
+  <a href="/" >main</a>
+</div>
+<style>
+.container h1{
+text-align:center;
+}
+</style>
+
+</body>
+</html>

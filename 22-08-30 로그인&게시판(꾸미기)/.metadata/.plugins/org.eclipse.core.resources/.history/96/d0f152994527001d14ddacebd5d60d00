@@ -1,0 +1,14 @@
+package service;
+
+import controller.List;
+import domain.BoardVO;
+
+public interface BoardService {
+
+	int register(BoardVO bvo); // bvo로 변경
+
+	List<BoardVO> getList();
+
+	java.util.List<BoardVO> selectList();
+
+}

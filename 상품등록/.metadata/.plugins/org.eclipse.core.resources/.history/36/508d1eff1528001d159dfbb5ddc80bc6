@@ -1,0 +1,14 @@
+package orm;
+
+import java.sql.Connection;
+
+public class DatabaseConnector {
+	private static DatabaseConnector dbc = new DatabaseConnector();
+	private Connection conn = null; //데이터 베이스 접속 관련 규격
+	//Connector/j 에서 제공하는 클래스
+	private String jdbcDriver = "com.mysql.cj.jdbc.Driver";
+	//mysql 프로그램 접근 위치
+	private String jdbcUrl = "jdbc:mysql://localhost:33006/testdb";
+	
+
+}

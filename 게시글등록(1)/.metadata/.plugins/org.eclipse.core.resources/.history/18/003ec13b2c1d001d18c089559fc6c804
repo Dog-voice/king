@@ -1,0 +1,31 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<!--  forEach : 반복문
+    <c:forEach item="대상배열/컬렉션" var="변수" vatStatus="index, count 속성이 있음. "> 
+    index = 0번지부터 시작
+    count = 1부터 시작
+    </c:forEach>
+    -->
+    
+    
+    <%
+       String friend[] = {"밀크", "두유", "우유"};
+       request.setAttribute("fa", friend);
+     %>
+         
+     <c:forEach items="${requestScope.fa }" var="fname" varStatus="order">
+          count: ${order.count }
+          index: ${order.index }
+          ${fname } <br>
+     </c:forEach>
+
+</body>
+</html>

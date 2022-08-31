@@ -1,0 +1,10 @@
+package orm;
+
+public class DatabaseBuilder {
+
+	public static Object getFactroy() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

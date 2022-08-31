@@ -1,0 +1,13 @@
+package service;
+
+import domain.ProductVO;
+
+public class ProductServiceImpl implements ProductService {
+
+	@Override
+	public int register(ProductVO pvo) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+}

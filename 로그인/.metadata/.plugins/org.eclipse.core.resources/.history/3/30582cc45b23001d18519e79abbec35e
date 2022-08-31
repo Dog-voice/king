@@ -1,0 +1,128 @@
+package controller;
+
+import java.io.IOException;
+
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import domain.MemberVO;
+import service.MemberService;
+import service.MemberServiceImpl;
+
+
+
+@WebServlet("/mem/*")
+public class MemberController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	private static final Logger log = LoggerFactory.getLogger(MemberController.class);
+    private  RequestDispatcher rdp;
+    private MemberService msv; //interface 생성 - service폴더에
+    private String destPage; //목적지 주소 기록 변수
+    private int isUp; //기록이 잘되었는지 확인하는 변수
+    
+    public MemberController() {
+        msv =  new MemberServiceImpl(); // interface 구현 클레스 - service폴더에 생성
+    }
+
+	
+	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+	    req.setCharacterEncoding("utf-8");
+	    res.setCharacterEncoding("utf-8");
+	    res.setContentType("text/html; charset=utf-8");
+	    
+	    String uri = req.getRequestURI();    //     /mem/login
+	    String path = uri.substring(uri.lastIndexOf("/")+1);
+	    
+	    switch(path) {
+	    //실제 동작이 일어나는 부분 
+	    case "join" :
+	    	//회원가입 페이지 open에 사용
+	    	System.out.println("check 1");
+	    	destPage = "/member/join.jsp";	
+	        break;
+	        
+	    case "register":
+	    	//회원정보 저장
+	    	System.out.println("check 2");
+	    	isUp = msv.register(new MemberVO(req.getParameter("id"),
+	    		        req.getParameter("password"), req.getParameter("email"),
+	    		        Integer.parseInt(req.getParameter("age"))));
+	    	System.out.println("check 2-4");
+	    	log.info(">> join > ", isUp  > 0? "ok" : "fail");
+	    	destPage="/";
+	    	break;
+	    
+	    case "login":
+	    	MemberVO mvo = msv.login(new MemberVO(req.getParameter("id"),
+	    			req.getParameter("password")));
+	    	System.out.println("check 1-1");
+	    	if(mvo != null) { //id, password 일치하는 자료를 찾았음.
+	    		//로그인 성공 - 세션에 담아서 보냄
+	    		//세션이 현재 연결된 세션이 있으면 해당 세션 유지, 없으면 새로 생성
+	    		//getSession(true) / getSession(false)
+	    		HttpSession ses = req.getSession(); 
+	    		ses.setAttribute("ses", mvo);
+	    		//로그인유지시간
+	    		ses.setMaxInactiveInterval(10*60); //초 단위 =>10분유지
+	    		
+	    	}else {    //로그인 실패
+	    		req.setAttribute("msg_login", 0);
+	    	}
+	    	destPage="/";
+	    	break;
+	    	
+	    case "logout":
+	    	HttpSession ses = req.getSession(); //로그인이 된 현재 세션 가져오기
+	    	ses.invalidate(); //세션종료
+	    	destPage = "/";
+	    	break;
+	    	
+	    case "list":
+	    	req.setAttribute("list", msv.getList());  //구현
+	    	destPage="/member/list.jsp";
+    	        break;
+    	        
+	    case "modify": //수정 페이지를 띄우는 역할
+	    	    req.setAttribute("modify",msv.getList() );
+	    		destPage="/member/modify.jsp";
+	    	break;
+	    	
+	    case "update": //실제 수정이 일어나는 케이스
+	    	isUp = msv.register(new MemberVO(req.getParameter("id"),
+    		        req.getParameter("password"), req.getParameter("email"),
+    		        Integer.parseInt(req.getParameter("age"))));
+	    	System.out.println("check 4-1");
+    	log.info(">> update > ", isUp  > 0? "ok" : "fail");
+	    	destPage= "modify?id="+mvo.getId();
+	    	break;
+	    	
+	    case "remove": //실제 삭제가 일어나는 케이스
+	    	break;
+	    	
+	    }
+	   
+	    //목적지 forward
+	    rdp = req.getRequestDispatcher(destPage);
+	    rdp.forward(req, res);
+	    }
+
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		service(request, response);
+	}
+
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		service(request, response);
+	}
+
+}

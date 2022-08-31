@@ -1,0 +1,91 @@
+package controller;
+
+import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import domain.MemberVO;
+import service.MemberService;
+import service.MemberServiceImpl;
+
+
+
+@WebServlet("/mem/*")
+public class MemberController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	private static final Logger log = LoggerFactory.getLogger(MemberController.class);
+    private  RequestDispatcher rdp;
+    private MemberService msv; //interface 생성 - service폴더에
+    private String destPage; //목적지 주소 기록 변수
+    private int isUp; //기록이 잘되었는지 확인하는 변수
+    
+    public MemberController() {
+        msv =  new MemberServiceImpl(); // interface 구현 클레스 - service폴더에 생성
+    }
+
+	
+	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+	    req.setCharacterEncoding("utf-8");
+	    res.setCharacterEncoding("utf-8");
+	    res.setContentType("text/html; charset=utf-8");
+	    
+	    String uri = req.getRequestURI();    //     /mem/login
+	    String path = uri.substring(uri.lastIndexOf("/")+1);
+	    
+	    switch(path) {
+	    //실제 동작이 일어나는 부분 
+	    case "join" :
+	    	//회원가입 페이지 open에 사용
+	    	System.out.println("check 1");
+	    	destPage = "/member/join.jsp";	
+	        break;
+	        
+	    case "register":
+	    	//회원정보 저장
+	    	System.out.println("check 2");
+	    	isUp = msv.register(new MemberVO(req.getParameter("id"),
+	    		        req.getParameter("password"), req.getParameter("email"),
+	    		        Integer.parseInt(req.getParameter("age"))));
+	    	System.out.println("check 2-4");
+	    	log.info(">> join > ", isUp  > 0? "ok" : "fail");
+	    	destPage="/";
+	    	break;
+	    
+	    case "login":
+	    	break;
+	    	
+	    case "logout":
+	    	break;
+	    	
+	    case "list":
+	    	
+	    	System.out.println("check 2-5");
+	    	req.setAttribute("list", msv.getList());  //구현
+	    	destPage="member/list.jsp";
+    	        break;
+	   
+	    //목적지 forward
+	    rdp = req.getRequestDispatcher(destPage);
+	    rdp.forward(req, res);
+	    }
+
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		service(request, response);
+	}
+
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		service(request, response);
+	}
+
+}

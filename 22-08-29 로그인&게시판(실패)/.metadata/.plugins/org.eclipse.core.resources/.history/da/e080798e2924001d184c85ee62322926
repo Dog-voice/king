@@ -1,0 +1,18 @@
+package repository;
+
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+
+import domain.MemberVO;
+import orm.DatabaseBuilder;
+
+public class MemberDAOImpl implements MemberDAO {
+	// DB와 연결되서 데이터를 처리
+	private SqlSession sql;
+	private final String NS = "MemberMapper."; //mapper 이름을 저장
+	
+	public MemberDAOImpl() {
+		new DatabaseBuilder();    //class 생성 => orm
+		sql = DatabaseBuilder.getFactory().openSession();
+	}

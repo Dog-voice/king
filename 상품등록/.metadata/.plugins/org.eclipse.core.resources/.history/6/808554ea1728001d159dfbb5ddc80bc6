@@ -1,0 +1,33 @@
+package repository;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+import domain.ProductVO;
+import orm.DatabaseConnector;
+
+public class ProductDAOImpl implements ProductDAO {
+	//DatabaseConnector
+	private Connection conn;
+	private PreparedStatement pst;
+	private String query="";
+	
+	public ProductDAOImpl() {
+		DatabaseConnector abc = DatabaseConnector.getInstance();
+		conn = abc.getConnection();
+	}
+
+	@Override
+	public int insert(ProductVO pvo) {
+		// 직접 query 구문 작성 prepareStatement
+		query = "insert into product (pname, price, made_by) values(?<?,?)"; 
+		try {
+			
+		} catch (SQLException e) {
+			// TODO: handle exception
+		}
+		return 0;
+	}
+
+}

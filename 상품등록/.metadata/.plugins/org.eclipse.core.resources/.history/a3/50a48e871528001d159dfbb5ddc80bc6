@@ -1,0 +1,10 @@
+package orm;
+
+import java.sql.Connection;
+
+public class DatabaseConnector {
+	private static DatabaseConnector dbc = new DatabaseConnector();
+	private Connection conn = null; //데이터 베이스 접속 관련 규격
+	
+
+}

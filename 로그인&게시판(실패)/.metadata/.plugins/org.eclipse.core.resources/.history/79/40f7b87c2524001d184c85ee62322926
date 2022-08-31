@@ -1,0 +1,21 @@
+package reporitory;
+
+import java.util.List;
+
+import domain.MemberVO;
+
+
+public interface MemberDAO {
+
+	int insert(MemberVO mvo);
+
+	List<MemberVO> selectList();
+
+	MemberVO selectOne(MemberVO mvo);   
+	
+	MemberVO detail(String id);
+
+	int update(MemberVO mvo);
+
+	int delete(String id);
+}

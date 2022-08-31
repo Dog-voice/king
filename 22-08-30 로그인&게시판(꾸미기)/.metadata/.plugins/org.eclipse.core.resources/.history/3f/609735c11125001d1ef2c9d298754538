@@ -1,0 +1,11 @@
+package service;
+
+import domain.MemberVO;
+
+public interface MemberService {
+
+	int register(MemberVO mvo); // mvo로 바꿔주기
+
+	MemberVO login(MemberVO mvo); //mvo로 바꿔주기
+
+}

@@ -1,0 +1,23 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>EL param 연습 2</title>
+</head>
+<body>
+   <a href="step1.jsp">step1.jsp로 이동</a>
+   <hr>
+   1. 쿼리스트링(스클립틀릿)으로 파라미터를 전달 받음 <br>
+   <%=request.getParameter("name") %><br>
+   <%=request.getParameter("address") %><br>
+   <br>
+   
+   2. EL 방식으로 파라미터를 전달 받음. <br>
+   ${param.name }<br>
+   ${param.address }<br>
+   
+
+</body>
+</html>

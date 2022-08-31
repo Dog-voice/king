@@ -1,0 +1,105 @@
+package controller;
+
+import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import domain.MemberVO;
+import service.MemberService;
+import service.MemberServiceImpl;
+
+
+
+@WebServlet("/mem/*")
+public class MemberController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	private static final Logger log = LoggerFactory.getLogger(MemberController.class);
+	private RequestDispatcher rdp;   
+	private MemberService msv; // 서비스에 인터페이스 추가예정
+	private String destPage;  
+	private int isUp;
+       
+	
+	 public MemberController() {
+	        msv = new MemberServiceImpl();  
+	    }
+   
+
+	
+	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		req.setCharacterEncoding("utf-8");
+		res.setCharacterEncoding("utf-8");
+		res.setContentType("text/html; charset=stf-8");
+		
+		String uri = req.getRequestURI();
+		String path = uri.substring(uri.lastIndexOf("/")+1);
+		
+		switch(path) {
+		case "login":
+			destPage = "/member/login.jsp";
+			break;
+			
+		case "login_auth": //login 작업이 일어나는 위치
+			MemberVO mvo = msv.login(new MemberVO(  
+					req.getParameter("email"),
+					req.getParameter("pwd")
+					));
+			if(mvo != null) {
+				//세션을 가져오기
+				HttpSession ses = req.getSession(); // 연결된 세션이 없다면 새로 생성
+				// ses로 mvo를 바인딩 한다.
+				ses.setAttribute("ses", mvo);
+				ses.setMaxInactiveInterval(600);  //초단위 60*10
+			}else {
+				req.setAttribute("msg_login",  0) ;   // 0을 받았을 경우 로그인 실패
+			}
+			destPage="/";
+			break;
+			
+		case "logut":
+			break;
+			
+		case "join":
+			break;
+			
+		case "register":
+			break;
+			
+		case "list":
+			break;
+			
+		case "modify":
+			break;
+			
+		case "update":
+			break;
+			
+		case "remove":
+			break;
+		}
+		rdp = req.getRequestDispatcher(destPage);
+		rdp.forward(req, res);
+	}
+
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
+	}
+
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
+	}
+
+}

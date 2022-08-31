@@ -1,0 +1,13 @@
+package service;
+
+import domain.MemberVO;
+
+public class MemberServiceImpl implements MemberService {
+
+	@Override
+	public int register(MemberVO mvo) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+}

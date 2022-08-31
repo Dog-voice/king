@@ -1,0 +1,20 @@
+package service;
+
+import domain.ProductVO;
+import repository.ProductDAO;
+import repository.ProductDAOImpl;
+
+public class ProductServiceImpl implements ProductService {
+	private ProductDAO pdao;
+	
+	public ProductServiceImpl() {
+		pdao = new ProductDAOImpl();
+	}
+
+	@Override
+	public int register(ProductVO pvo) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+}

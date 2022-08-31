@@ -1,0 +1,13 @@
+package service;
+
+import java.util.List;
+
+import domain.ProductVO;
+
+public interface ProductService {
+
+	int register(ProductVO pvo);
+	
+	List<ProductVO> getList();
+
+}

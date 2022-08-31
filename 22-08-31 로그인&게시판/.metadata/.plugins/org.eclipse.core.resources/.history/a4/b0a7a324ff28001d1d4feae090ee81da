@@ -1,0 +1,39 @@
+package repository;
+
+import java.util.List;
+
+import domain.BoardVO;
+
+public class BoardDAOImpl implements BoardDAO {
+
+	@Override
+	public int insert(BoardVO bvo) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public List<BoardVO> selectList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public BoardVO selectDetail(int bno) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int update(BoardVO bvo) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int delete(int bno) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+}
